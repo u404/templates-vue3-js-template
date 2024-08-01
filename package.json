@@ -24,6 +24,7 @@
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.5",
     "@rushstack/eslint-patch": "^1.8.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
