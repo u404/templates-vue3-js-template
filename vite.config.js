@@ -3,6 +3,10 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
+import pxToRemOrVwPlugin from 'vite-plugin-px-rem-vw'
+// 按需引入组件库：
+// element-plus参考： https://element-plus.org/zh-CN/guide/quickstart.html
+// vant-ui参考：https://vant-ui.github.io/vant/#/zh-CN/quickstart#fang-fa-er.-an-xu-yin-ru-zu-jian-yang-shi
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -19,7 +23,17 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
-    plugins: [vue(), mockDevServerPlugin()],
+    plugins: [
+      vue(),
+      pxToRemOrVwPlugin({
+        type: 'vw',
+        options: {
+          viewportWidth: 375,
+          mediaQuery: false // 媒体查询里的不转换
+        }
+      }),
+      mockDevServerPlugin()
+    ],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
