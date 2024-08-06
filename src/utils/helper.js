@@ -59,14 +59,14 @@ export const localCache = (() => {
  */
 export const createSingletonPromiseFunction = (promiseFunction = async () => {}) => {
   let promise = null
-  return async (...args) => {
+  return (...args) => {
     if (!promise) {
       promise = promiseFunction(...args).catch((e) => {
         promise = null
         throw e
       })
     }
-    return await promise
+    return promise
   }
 }
 
@@ -77,16 +77,12 @@ export const createSingletonPromiseFunction = (promiseFunction = async () => {})
  */
 export const createThrottlePromiseFunction = (promiseFunction = async () => {}) => {
   let promise = null
-  return async (...args) => {
+  return (...args) => {
     if (!promise) {
-      promise = (async () => {
-        try {
-          return await promiseFunction(...args)
-        } finally {
-          promise = null
-        }
-      })()
+      promise = promiseFunction(...args).finally(() => {
+        promise = null
+      })
     }
-    return await promise
+    return promise
   }
 }

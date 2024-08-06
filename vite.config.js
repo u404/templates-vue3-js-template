@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
     base: env.BASE_URL || '',
     server: {
       proxy: {
-        '/eloan': {
+        '/api': {
           target: 'http://10.0.0.69:8081/',
           changeOrigin: true
           // rewrite: (path) => path.replace(/^\/urule/, '')
